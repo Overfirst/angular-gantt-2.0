@@ -15,4 +15,18 @@ export const ganttTasks: GanttTask[] = [
     end: new Date('2021-07-16 12:00'),
     readyPercent: 62,
   },
+  {
+    ID: 3,
+    name: 'Test task 3',
+    start: new Date('2021-06-25 06:00'),
+    end: new Date('2021-06-28 14:00'),
+    readyPercent: 31,
+  },
+  {
+    ID: 4,
+    name: 'Test task 4',
+    start: new Date('2021-08-12 12:00'),
+    end: new Date('2021-08-17 16:30'),
+    readyPercent: 77,
+  },
 ];

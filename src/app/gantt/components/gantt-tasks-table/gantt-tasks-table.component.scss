@@ -1,0 +1,24 @@
+@import "../../../../styles.scss";
+
+td,
+th {
+  &:first-child {
+    min-width: 50px;
+    max-width: 50px;
+  }
+
+  min-width: 100px;
+  max-width: 150px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+thead tr:first-child {
+  height: 2 * $table-row-height;
+}
+
+.tasks-empty {
+  display: flex;
+  justify-content: center;
+}

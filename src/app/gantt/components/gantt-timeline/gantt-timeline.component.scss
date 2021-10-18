@@ -1,0 +1,6 @@
+th,
+td {
+  &:first-child {
+    border-left: none;
+  }
+}

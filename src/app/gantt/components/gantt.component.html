@@ -1,2 +1,21 @@
-<ng-gantt-tasks-table [tasks]="tasks"></ng-gantt-tasks-table>
-<ng-gantt-timeline></ng-gantt-timeline>
+<div
+  class="gantt"
+  [style.width]="ganttWidth"
+  [style.height]="ganttHeight"
+>
+  <ng-gantt-toolbar></ng-gantt-toolbar>
+
+  <div class="gantt-content">
+    <ng-gantt-tasks-table
+      [tasks]="tasks"
+      [contentScroll]="contentScroll"
+      (onScroll)="onContentScroll($event)"
+    ></ng-gantt-tasks-table>
+
+    <!--  <ng-gantt-timeline-->
+    <!--    [tasks]="tasks"-->
+    <!--    [contentScroll]="contentScroll"-->
+    <!--    (onScroll)="onContentScroll($event)"-->
+    <!--  ></ng-gantt-timeline>-->
+  </div>
+</div>

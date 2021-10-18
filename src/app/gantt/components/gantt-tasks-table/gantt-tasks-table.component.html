@@ -9,10 +9,10 @@
         <th>Ready percent</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody #content>
       <tr *ngFor="let task of tasks">
         <td>{{ task.ID }}</td>
-        <td>{{ task.name }}</td>
+        <td [title]="task.name">{{ task.name }}</td>
         <td>{{ task.start | date:'YYYY.MM.dd' }}</td>
         <td>{{ task.end | date:'YYYY.MM.dd' }}</td>
         <td>{{ task.readyPercent }}</td>
