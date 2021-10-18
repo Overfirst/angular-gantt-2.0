@@ -9,4 +9,16 @@ import { ganttTasks } from './gantt-tasks';
 })
 export class AppComponent {
   public tasks: GanttTask[] = ganttTasks;
+
+  public taskCreated(task: GanttTask): void {
+    console.log('Create task', task);
+  }
+
+  public taskChanged(task: GanttTask): void {
+    console.log('Change task', task);
+  }
+
+  public taskRemoved(task: GanttTask): void {
+    console.log('Remove task', task);
+  }
 }

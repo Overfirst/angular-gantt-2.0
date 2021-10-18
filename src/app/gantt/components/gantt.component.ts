@@ -1,11 +1,12 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  EventEmitter,
   Input,
   Output,
-  EventEmitter,
 } from '@angular/core';
 import { GanttTask } from '../types/gantt-task.interface';
+import { GanttView } from '../types/gantt-view.enum';
 
 @Component({
   selector: 'ng-gantt',
@@ -31,6 +32,7 @@ export class GanttComponent {
   }
 
   @Input() public tasks: GanttTask[] = [];
+  @Input() public view: GanttView = GanttView.Day;
 
   @Output() public onTaskCreated = new EventEmitter<GanttTask>();
   @Output() public onTaskRemoved = new EventEmitter<GanttTask>();
@@ -38,5 +40,9 @@ export class GanttComponent {
 
   public onContentScroll(scroll: number): void {
     this.contentScroll = scroll;
+  }
+
+  public changeView(view: GanttView): void {
+    this.view = view;
   }
 }

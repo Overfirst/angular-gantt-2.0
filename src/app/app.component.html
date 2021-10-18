@@ -1,3 +1,6 @@
-<div class="gantt">
-  <ng-gantt [tasks]="tasks"></ng-gantt>
-</div>
+<ng-gantt
+  [tasks]="tasks"
+  (onTaskCreated)="taskCreated($event)"
+  (onTaskChanged)="taskChanged($event)"
+  (onTaskRemoved)="taskRemoved($event)"
+></ng-gantt>

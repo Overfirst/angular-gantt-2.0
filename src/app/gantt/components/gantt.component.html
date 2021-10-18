@@ -3,7 +3,10 @@
   [style.width]="ganttWidth"
   [style.height]="ganttHeight"
 >
-  <ng-gantt-toolbar></ng-gantt-toolbar>
+  <ng-gantt-toolbar
+    [selectedView]="view"
+    (onViewChanged)="changeView($event)"
+  ></ng-gantt-toolbar>
 
   <div class="gantt-content">
     <ng-gantt-tasks-table

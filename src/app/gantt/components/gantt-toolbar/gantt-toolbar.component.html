@@ -1,0 +1,15 @@
+<div class="toolbar">
+  <div class="btns-view">
+    <button
+      class="btn-toolbar btn-toolbar-view"
+      *ngFor="let view of views"
+      [class.btn-toolbar-active]="selectedView === view"
+      (click)="selectView(view)"
+    >{{ view }}</button>
+  </div>
+
+  <button
+    class="btn-toolbar btn-toolbar-create"
+    (click)="addTask()"
+  >Add task</button>
+</div>
