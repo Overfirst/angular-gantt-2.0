@@ -1,12 +1,7 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { GanttTask } from '../types/gantt-task.interface';
 import { GanttView } from '../types/gantt-view.enum';
+import { GanttService } from '../services/gantt.service';
 
 @Component({
   selector: 'ng-gantt',
@@ -37,6 +32,8 @@ export class GanttComponent {
   @Output() public onTaskCreated = new EventEmitter<GanttTask>();
   @Output() public onTaskRemoved = new EventEmitter<GanttTask>();
   @Output() public onTaskChanged = new EventEmitter<GanttTask>();
+
+  constructor(private service: GanttService) {}
 
   public onContentScroll(scroll: number): void {
     this.contentScroll = scroll;

@@ -4,3 +4,9 @@ td {
     border-left: none;
   }
 }
+
+thead tr th {
+  min-width: 120px;
+  max-width: 120px;
+  text-align: left;
+}

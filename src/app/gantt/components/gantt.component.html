@@ -15,10 +15,11 @@
       (onScroll)="onContentScroll($event)"
     ></ng-gantt-tasks-table>
 
-    <!--  <ng-gantt-timeline-->
-    <!--    [tasks]="tasks"-->
-    <!--    [contentScroll]="contentScroll"-->
-    <!--    (onScroll)="onContentScroll($event)"-->
-    <!--  ></ng-gantt-timeline>-->
+      <ng-gantt-timeline
+        [tasks]="tasks"
+        [view]="view"
+        [contentScroll]="contentScroll"
+        (onScroll)="onContentScroll($event)"
+      ></ng-gantt-timeline>
   </div>
 </div>

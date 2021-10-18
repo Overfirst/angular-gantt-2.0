@@ -1,14 +1,18 @@
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   ElementRef,
+  EventEmitter,
   Input,
   Output,
   ViewChild,
-  EventEmitter,
-  AfterViewInit,
 } from '@angular/core';
 import { GanttTask } from '../../types/gantt-task.interface';
+import { GanttTimelineDates } from '../../types/gantt-timeline-dates.interface';
+import { GanttService } from '../../services/gantt.service';
+import { GanttView } from '../../types/gantt-view.enum';
+import { endOfWeek } from 'date-fns';
 
 @Component({
   selector: 'ng-gantt-timeline',
@@ -17,9 +21,32 @@ import { GanttTask } from '../../types/gantt-task.interface';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GanttTimelineComponent implements AfterViewInit {
+  constructor(private service: GanttService) {}
+
   @ViewChild('content') public content!: ElementRef<HTMLBodyElement>;
 
-  @Input() public tasks: GanttTask[] = [];
+  private ganttTasks: GanttTask[] = [];
+  private ganttView: GanttView = GanttView.Day;
+
+  public timelineDates: GanttTimelineDates | null = null;
+
+  @Input() public set tasks(tasks: GanttTask[]) {
+    this.ganttTasks = tasks;
+    this.timelineDates = this.service.getTimelineDates(this.tasks, this.view);
+  }
+
+  public get tasks(): GanttTask[] {
+    return this.ganttTasks;
+  }
+
+  @Input() public set view(view: GanttView) {
+    this.ganttView = view;
+    this.timelineDates = this.service.getTimelineDates(this.tasks, this.view);
+  }
+
+  public get view(): GanttView {
+    return this.ganttView;
+  }
 
   @Output() public onScroll = new EventEmitter<number>();
 
@@ -30,7 +57,10 @@ export class GanttTimelineComponent implements AfterViewInit {
   }
 
   public ngAfterViewInit(): void {
-    this.content.nativeElement.onscroll = () =>
-      this.onScroll.emit(this.content.nativeElement.scrollTop);
+    this.content.nativeElement.onscroll = () => this.onScroll.emit(this.content.nativeElement.scrollTop);
+  }
+
+  public getWeekEnd(date: Date): Date {
+    return endOfWeek(date, { weekStartsOn: 1 });
   }
 }

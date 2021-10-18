@@ -1,12 +1,44 @@
 <div>
   <table>
-    <thead>
-    <tr>
-      <th>Main date</th>
-    </tr>
-    <tr>
-      <th>Detail dates</th>
-    </tr>
+    <thead *ngIf="timelineDates" [ngSwitch]="view">
+      <ng-container *ngSwitchCase="'Day'">
+        <tr>
+          <th
+            nowrap
+            colspan="24"
+            *ngFor="let headerDate of timelineDates.headerDates"
+          >
+            {{ headerDate | date:'dd MMM, EEEE, YYYY' }}
+          </th>
+        </tr>
+        <tr>
+          <th
+            nowrap
+            *ngFor="let detailDate of timelineDates.detailDates"
+          >
+            {{ detailDate | date:'HH:mm' }}
+          </th>
+        </tr>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="'Week'">
+        <tr>
+          <th
+            nowrap
+            colspan="7"
+            *ngFor="let headerDate of timelineDates.headerDates">
+            {{ headerDate | date:'MMM, dd' }} – {{ getWeekEnd(headerDate) | date:'MMM, dd' }}
+          </th>
+        </tr>
+        <tr>
+          <th
+            nowrap
+            *ngFor="let detailDate of timelineDates.detailDates"
+          >
+            {{ detailDate | date:'EEE, dd' }}
+          </th>
+        </tr>
+      </ng-container>
     </thead>
     <tbody #content>
       <tr *ngFor="let task of tasks">
