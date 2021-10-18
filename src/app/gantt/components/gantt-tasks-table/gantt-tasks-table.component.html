@@ -1,0 +1,22 @@
+<div>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Start date</th>
+        <th>End date</th>
+        <th>Ready percent</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let task of tasks">
+        <td>{{ task.ID }}</td>
+        <td>{{ task.name }}</td>
+        <td>{{ task.start | date:'YYYY.MM.dd' }}</td>
+        <td>{{ task.end | date:'YYYY.MM.dd' }}</td>
+        <td>{{ task.readyPercent }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
