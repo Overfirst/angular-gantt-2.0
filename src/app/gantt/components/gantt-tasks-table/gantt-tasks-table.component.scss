@@ -1,19 +1,5 @@
 @import "../../../../styles.scss";
 
-td,
-th {
-  &:first-child {
-    min-width: 50px;
-    max-width: 50px;
-  }
-
-  min-width: 100px;
-  max-width: 150px;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-}
-
 thead tr:first-child {
   height: 2 * $table-row-height;
 }
@@ -21,4 +7,49 @@ thead tr:first-child {
 .tasks-empty {
   display: flex;
   justify-content: center;
+}
+
+th, td {
+  &:nth-child(1) {
+    min-width: 50px;
+    max-width: 50px;
+    width: 50px;
+  }
+
+
+  &:nth-child(2) {
+    min-width: 200px;
+    max-width: 200px;
+    width: 200px;
+  }
+
+  &:nth-child(3), &:nth-child(4) {
+    min-width: 120px;
+    max-width: 120px;
+    width: 120px;
+  }
+
+  &:nth-child(5) {
+    min-width: 150px;
+    max-width: 150px;
+    width: 150px;
+  }
+}
+
+.tasks-table {
+  overflow-x: scroll;
+}
+
+.tasks-content {
+  overflow-x: scroll;
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+
+  background: $table-inside-color;
 }

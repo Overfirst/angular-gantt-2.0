@@ -1,7 +1,6 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostListener, Input, Output, ViewChild } from '@angular/core';
 import { GanttTask } from '../types/gantt-task.interface';
 import { GanttView } from '../types/gantt-view.enum';
-import { GanttService } from '../services/gantt.service';
 
 @Component({
   selector: 'ng-gantt',
@@ -9,31 +8,26 @@ import { GanttService } from '../services/gantt.service';
   styleUrls: ['./gantt.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class GanttComponent {
-  public ganttWidth: string = '100%';
-  public ganttHeight: string = '400px';
+export class GanttComponent implements AfterViewInit {
+  @ViewChild('gantt') public gantt!: ElementRef<HTMLDivElement>;
+  @ViewChild('tasksTable') public tasksTable!: ElementRef<HTMLDivElement>;
+
   public contentScroll: number = 0;
-
-  @Input() public set width(width: string) {
-    if (parseInt(width) >= 1200) {
-      this.ganttWidth = width;
-    }
-  }
-
-  @Input() public set height(height: string) {
-    if (parseInt(height) >= 400) {
-      this.ganttHeight = height;
-    }
-  }
+  public timelineWidth: number = 0;
 
   @Input() public tasks: GanttTask[] = [];
   @Input() public view: GanttView = GanttView.Day;
+  @Input() public visibleRows: number = 10;
 
   @Output() public onTaskCreated = new EventEmitter<GanttTask>();
   @Output() public onTaskRemoved = new EventEmitter<GanttTask>();
   @Output() public onTaskChanged = new EventEmitter<GanttTask>();
 
-  constructor(private service: GanttService) {}
+  constructor(private cdRef: ChangeDetectorRef) {}
+
+  public ngAfterViewInit(): void {
+    this.calculateTimelineWidth();
+  }
 
   public onContentScroll(scroll: number): void {
     this.contentScroll = scroll;
@@ -41,5 +35,18 @@ export class GanttComponent {
 
   public changeView(view: GanttView): void {
     this.view = view;
+  }
+
+  public calculateTimelineWidth(): void {
+    const ganttWidth = this.gantt.nativeElement.getBoundingClientRect().width;
+    const tasksTableWidth = this.tasksTable.nativeElement.getBoundingClientRect().width;
+    const totalWidth = ganttWidth - tasksTableWidth;
+
+    this.timelineWidth = totalWidth >= 400 ? totalWidth : 400;
+    this.cdRef.detectChanges();
+  }
+
+  @HostListener('window:resize') public onResize(): void {
+    this.calculateTimelineWidth();
   }
 }

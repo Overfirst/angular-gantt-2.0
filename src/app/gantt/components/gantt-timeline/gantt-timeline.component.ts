@@ -8,6 +8,7 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
+
 import { GanttTask } from '../../types/gantt-task.interface';
 import { GanttTimelineDates } from '../../types/gantt-timeline-dates.interface';
 import { GanttService } from '../../services/gantt.service';
@@ -23,7 +24,8 @@ import { endOfWeek } from 'date-fns';
 export class GanttTimelineComponent implements AfterViewInit {
   constructor(private service: GanttService) {}
 
-  @ViewChild('content') public content!: ElementRef<HTMLBodyElement>;
+  @ViewChild('header') public header!: ElementRef<HTMLDivElement>;
+  @ViewChild('content') public content!: ElementRef<HTMLDivElement>;
 
   private ganttTasks: GanttTask[] = [];
   private ganttView: GanttView = GanttView.Day;
@@ -56,11 +58,25 @@ export class GanttTimelineComponent implements AfterViewInit {
     }
   }
 
+  @Input() public contentWidth: number = 400;
+  @Input() public visibleRows: number = 10;
+
   public ngAfterViewInit(): void {
-    this.content.nativeElement.onscroll = () => this.onScroll.emit(this.content.nativeElement.scrollTop);
+    this.header.nativeElement.onscroll = () => this.content.nativeElement.scrollLeft = this.header.nativeElement.scrollLeft;
+    console.log('onContentScroll', this.header.nativeElement.scrollLeft);
+
+    this.content.nativeElement.onscroll = () => {
+      this.header.nativeElement.scrollLeft = this.content.nativeElement.scrollLeft;
+      console.log('onContentScroll', this.content.nativeElement.scrollLeft);
+      this.onScroll.emit(this.content.nativeElement.scrollTop);
+    }
   }
 
   public getWeekEnd(date: Date): Date {
     return endOfWeek(date, { weekStartsOn: 1 });
+  }
+
+  public getContentHeight(): string {
+    return 17 + this.service.rowHeight * this.visibleRows + 'px';
   }
 }

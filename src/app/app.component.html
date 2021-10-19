@@ -1,5 +1,6 @@
 <ng-gantt
   [tasks]="tasks"
+  [visibleRows]="15"
   (onTaskCreated)="taskCreated($event)"
   (onTaskChanged)="taskChanged($event)"
   (onTaskRemoved)="taskRemoved($event)"

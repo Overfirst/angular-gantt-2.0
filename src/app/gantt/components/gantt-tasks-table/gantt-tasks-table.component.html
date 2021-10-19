@@ -1,4 +1,4 @@
-<div>
+<div class="tasks-table">
   <table>
     <thead>
       <tr>
@@ -9,14 +9,23 @@
         <th>Ready percent</th>
       </tr>
     </thead>
-    <tbody #content>
-      <tr *ngFor="let task of tasks">
-        <td>{{ task.ID }}</td>
-        <td [title]="task.name">{{ task.name }}</td>
-        <td>{{ task.start | date:'dd.MM.YYYY' }}</td>
-        <td>{{ task.end | date:'dd.MM.YYYY' }}</td>
-        <td>{{ task.readyPercent }}</td>
-      </tr>
-    </tbody>
   </table>
+
+  <div
+    #content
+    class="tasks-content"
+    [style.height]="getContentHeight()"
+  >
+    <table>
+      <tbody>
+        <tr *ngFor="let task of tasks">
+          <td>{{ task.ID }}</td>
+          <td [title]="task.name">{{ task.name }}</td>
+          <td>{{ task.start | date:'dd.MM.YYYY' }}</td>
+          <td>{{ task.end | date:'dd.MM.YYYY' }}</td>
+          <td>{{ task.readyPercent }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

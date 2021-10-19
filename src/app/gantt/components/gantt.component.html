@@ -1,25 +1,30 @@
-<div
-  class="gantt"
-  [style.width]="ganttWidth"
-  [style.height]="ganttHeight"
->
-  <ng-gantt-toolbar
-    [selectedView]="view"
-    (onViewChanged)="changeView($event)"
-  ></ng-gantt-toolbar>
+<div class="gantt-wrapper">
+  <div #gantt>
+    <ng-gantt-toolbar
+      [selectedView]="view"
+      (onViewChanged)="changeView($event)"
+    ></ng-gantt-toolbar>
 
-  <div class="gantt-content">
-    <ng-gantt-tasks-table
-      [tasks]="tasks"
-      [contentScroll]="contentScroll"
-      (onScroll)="onContentScroll($event)"
-    ></ng-gantt-tasks-table>
+    <div class="gantt-content">
+      <div #tasksTable>
+        <ng-gantt-tasks-table
+          [tasks]="tasks"
+          [contentScroll]="contentScroll"
+          [visibleRows]="visibleRows"
+          (onScroll)="onContentScroll($event)"
+        ></ng-gantt-tasks-table>
+      </div>
 
-      <ng-gantt-timeline
-        [tasks]="tasks"
-        [view]="view"
-        [contentScroll]="contentScroll"
-        (onScroll)="onContentScroll($event)"
-      ></ng-gantt-timeline>
+      <div #timeline>
+        <ng-gantt-timeline
+          [tasks]="tasks"
+          [view]="view"
+          [contentScroll]="contentScroll"
+          [contentWidth]="timelineWidth"
+          [visibleRows]="visibleRows"
+          (onScroll)="onContentScroll($event)"
+        ></ng-gantt-timeline>
+      </div>
+    </div>
   </div>
 </div>

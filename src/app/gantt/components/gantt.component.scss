@@ -1,8 +1,12 @@
-.gantt {
-  background: #cccccc;
+@import "../../../styles.scss";
+
+.gantt-wrapper {
+  background: #bdbdbd;
   padding: 24px;
+  height: 100%;
 }
 
 .gantt-content {
   display: flex;
+  position: relative;
 }

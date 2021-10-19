@@ -1,3 +1,5 @@
+@import "../../gantt.styles.scss";
+
 th,
 td {
   &:first-child {
@@ -5,8 +7,39 @@ td {
   }
 }
 
-thead tr th {
+td {
+  user-select: none;
+}
+
+th, td {
   min-width: 120px;
   max-width: 120px;
   text-align: left;
+}
+
+.timeline-container {
+  max-width: 500px;
+  overflow: hidden;
+}
+
+.timeline-header-wrapper {
+  background: $table-inside-color;
+}
+
+.timeline-header {
+  overflow: scroll;
+  margin-right: 17px !important;
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    height: 0;
+    width: 0;
+  }
+}
+
+.timeline-content {
+  overflow: scroll;
+  background: $table-inside-color;
 }

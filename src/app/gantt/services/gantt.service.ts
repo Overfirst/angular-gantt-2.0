@@ -16,6 +16,8 @@ import { GanttTimelineDates } from '../types/gantt-timeline-dates.interface';
 
 @Injectable()
 export class GanttService {
+  public readonly rowHeight: number = 40;
+
   public getTimelineDates(tasks: GanttTask[], view: GanttView): GanttTimelineDates {
     const extremeDates = this.getTasksExtremeDates(tasks);
 
