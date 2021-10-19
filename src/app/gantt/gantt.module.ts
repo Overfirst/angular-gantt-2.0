@@ -16,6 +16,5 @@ import { GanttService } from './services/gantt.service';
     GanttToolbarComponent,
   ],
   exports: [GanttComponent],
-  providers: [GanttService],
 })
 export class GanttModule {}

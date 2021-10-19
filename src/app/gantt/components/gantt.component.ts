@@ -8,6 +8,7 @@ import {GanttService} from "../services/gantt.service";
   templateUrl: './gantt.component.html',
   styleUrls: ['./gantt.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [GanttService]
 })
 export class GanttComponent implements AfterViewInit {
   @ViewChild('gantt') public gantt!: ElementRef<HTMLDivElement>;
