@@ -10,7 +10,6 @@
         <ng-gantt-tasks-table
           [tasks]="tasks"
           [contentScroll]="contentScroll"
-          [visibleRows]="visibleRows"
           (onScroll)="onContentScroll($event)"
         ></ng-gantt-tasks-table>
       </div>
@@ -21,7 +20,6 @@
           [view]="view"
           [contentScroll]="contentScroll"
           [contentWidth]="timelineWidth"
-          [visibleRows]="visibleRows"
           (onScroll)="onContentScroll($event)"
         ></ng-gantt-timeline>
       </div>

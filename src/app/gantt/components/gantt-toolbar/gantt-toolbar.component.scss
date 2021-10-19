@@ -29,10 +29,13 @@
 }
 
 .btns-view .btn-toolbar {
+  &:not(&:first-child) {
+    border-left: none;
+  }
+
   &:first-child {
     border-bottom-left-radius: 4px;
     border-top-left-radius: 4px;
-    border-right: none;
   }
 
   &:last-child {

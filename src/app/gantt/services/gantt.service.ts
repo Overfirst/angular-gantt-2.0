@@ -17,6 +17,7 @@ import { GanttTimelineDates } from '../types/gantt-timeline-dates.interface';
 @Injectable()
 export class GanttService {
   public readonly rowHeight: number = 40;
+  public visibleRows = 10;
 
   public getTimelineDates(tasks: GanttTask[], view: GanttView): GanttTimelineDates {
     const extremeDates = this.getTasksExtremeDates(tasks);
@@ -30,6 +31,9 @@ export class GanttService {
 
       case GanttView.Month:
         return this.getTimelineDatesForMonthView(extremeDates);
+
+      case GanttView.Year:
+        return this.getTimelineDatesForYearView(extremeDates);
     }
   }
 
@@ -73,6 +77,13 @@ export class GanttService {
     };
   }
 
+  private getTimelineDatesForYearView(extremeDates: Date[]): GanttTimelineDates {
+    return {
+      headerDates: [],
+      detailDates: [],
+    };
+  }
+
   private getTasksExtremeDates(tasks: GanttTask[]): Date[] {
     const timeStamps = tasks
       .reduce((dates: Date[], task: GanttTask) => [...dates, task.start, task.end], [])
@@ -93,5 +104,10 @@ export class GanttService {
     newDate.setMilliseconds(0);
 
     return newDate;
+  }
+
+  public getContentHeight(hasScroll: boolean): string {
+    const scrollHeight = hasScroll ? 17 : 0;
+    return scrollHeight + this.rowHeight * this.visibleRows + 'px';
   }
 }

@@ -30,6 +30,9 @@ export class GanttTimelineComponent implements AfterViewInit {
   private ganttTasks: GanttTask[] = [];
   private ganttView: GanttView = GanttView.Day;
 
+  private headerScrollSync: boolean = false;
+  private contentScrollSync: boolean = false;
+
   public timelineDates: GanttTimelineDates | null = null;
 
   @Input() public set tasks(tasks: GanttTask[]) {
@@ -59,15 +62,24 @@ export class GanttTimelineComponent implements AfterViewInit {
   }
 
   @Input() public contentWidth: number = 400;
-  @Input() public visibleRows: number = 10;
 
   public ngAfterViewInit(): void {
-    this.header.nativeElement.onscroll = () => this.content.nativeElement.scrollLeft = this.header.nativeElement.scrollLeft;
-    console.log('onContentScroll', this.header.nativeElement.scrollLeft);
+    this.header.nativeElement.onscroll = () => {
+       if (!this.headerScrollSync) {
+         this.contentScrollSync = true;
+         this.content.nativeElement.scrollLeft = this.header.nativeElement.scrollLeft;
+       }
+
+       this.headerScrollSync = false;
+    };
 
     this.content.nativeElement.onscroll = () => {
-      this.header.nativeElement.scrollLeft = this.content.nativeElement.scrollLeft;
-      console.log('onContentScroll', this.content.nativeElement.scrollLeft);
+      if (!this.contentScrollSync) {
+        this.headerScrollSync = true;
+        this.header.nativeElement.scrollLeft = this.content.nativeElement.scrollLeft;
+      }
+
+      this.contentScrollSync = false;
       this.onScroll.emit(this.content.nativeElement.scrollTop);
     }
   }
@@ -77,6 +89,6 @@ export class GanttTimelineComponent implements AfterViewInit {
   }
 
   public getContentHeight(): string {
-    return 17 + this.service.rowHeight * this.visibleRows + 'px';
+    return this.service.getContentHeight(true);
   }
 }

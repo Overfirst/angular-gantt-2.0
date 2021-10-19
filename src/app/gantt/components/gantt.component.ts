@@ -1,6 +1,7 @@
 import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostListener, Input, Output, ViewChild } from '@angular/core';
 import { GanttTask } from '../types/gantt-task.interface';
 import { GanttView } from '../types/gantt-view.enum';
+import {GanttService} from "../services/gantt.service";
 
 @Component({
   selector: 'ng-gantt',
@@ -17,13 +18,16 @@ export class GanttComponent implements AfterViewInit {
 
   @Input() public tasks: GanttTask[] = [];
   @Input() public view: GanttView = GanttView.Day;
-  @Input() public visibleRows: number = 10;
+
+  @Input() public set visibleRows(count: number) {
+    this.service.visibleRows = count;
+  }
 
   @Output() public onTaskCreated = new EventEmitter<GanttTask>();
   @Output() public onTaskRemoved = new EventEmitter<GanttTask>();
   @Output() public onTaskChanged = new EventEmitter<GanttTask>();
 
-  constructor(private cdRef: ChangeDetectorRef) {}
+  constructor(private cdRef: ChangeDetectorRef, private service: GanttService) {}
 
   public ngAfterViewInit(): void {
     this.calculateTimelineWidth();

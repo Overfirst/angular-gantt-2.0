@@ -28,8 +28,6 @@ export class GanttTasksTableComponent implements AfterViewInit {
     }
   }
 
-  @Input() public visibleRows: number = 10;
-
   @Output() public onScroll = new EventEmitter<number>();
 
   public ngAfterViewInit(): void {
@@ -38,6 +36,6 @@ export class GanttTasksTableComponent implements AfterViewInit {
   }
 
   public getContentHeight(): string {
-    return this.service.rowHeight * this.visibleRows + 'px';
+    return this.service.getContentHeight(false);
   }
 }
